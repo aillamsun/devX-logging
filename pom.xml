@@ -1,0 +1,79 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.william</groupId>
+  <artifactId>devX-logging</artifactId>
+  <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>devX-logging-starter</module>
+      <module>devX-logging-api</module>
+      <module>devX-logging-samples</module>
+    </modules>
+    <packaging>pom</packaging>
+
+  <name>devX-logging</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <java.version>1.8</java.version>
+  </properties>
+
+  <dependencies>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.6.1</version>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+      <!--Skip Test True-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+
+      <!--Maven的清洁插件默认情况下，将删除目标目录�?-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>2.5</version>
+      </plugin>
+
+
+      <!--  -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.0.2</version>
+        <configuration>
+          <delimiters>
+            <delimiter>@</delimiter>
+          </delimiters>
+          <useDefaultDelimiters>false</useDefaultDelimiters>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-install-plugin</artifactId>
+        <version>2.5.2</version>
+
+      </plugin>
+
+    </plugins>
+  </build>
+
+</project>

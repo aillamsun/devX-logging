@@ -1,0 +1,52 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>devX-logging</artifactId>
+        <groupId>com.william</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>devX-logging-api</artifactId>
+    <packaging>jar</packaging>
+
+    <name>devX-logging-api</name>
+    <url>http://maven.apache.org</url>
+
+
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+
+
+        <!--工具-->
+        <guava.version>18.0</guava.version>
+        <joda.version>2.9.4</joda.version>
+        <commons.io.version>2.5</commons.io.version>
+        <apache.common.lang3.version>3.5</apache.common.lang3.version>
+        <apache.common.logging.version>1.2</apache.common.logging.version>
+        <apache.common.fileupload.version>1.3.1</apache.common.fileupload.version>
+        <apache.common.codec.version>1.10</apache.common.codec.version>
+
+
+    </properties>
+
+
+
+
+
+    <dependencies>
+        <!--JSON-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.12</version>
+        </dependency>
+
+    </dependencies>
+
+
+
+</project>
