@@ -5,6 +5,8 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,24 +19,30 @@ import org.springframework.context.annotation.Configuration;
 public class AopAccessLoggerSupportAutoConfiguration {
 
     @Bean
+    @ConditionalOnMissingBean(AopAccessLoggerSupport.class)
     public AopAccessLoggerSupport aopAccessLoggerSupport() {
         return new AopAccessLoggerSupport();
     }
 
     @Bean
-    public DefaultAccessLoggerParser defaultAccessLoggerParser(){
+    @ConditionalOnMissingBean(AccessLoggerParser.class)
+    public AccessLoggerParser defaultAccessLoggerParser() {
         return new DefaultAccessLoggerParser();
     }
 
     @Bean
-    public ListenerProcessor listenerProcessor() {
-        return new ListenerProcessor();
+    @ConditionalOnMissingBean(ListenerProcessor.class)
+    public ListenerProcessor listenerProcessor(AopAccessLoggerSupport aopAccessLoggerSupport) {
+        return new ListenerProcessor(aopAccessLoggerSupport);
     }
 
     public static class ListenerProcessor implements BeanPostProcessor {
 
-        @Autowired
-        private AopAccessLoggerSupport aopAccessLoggerSupport;
+        private final AopAccessLoggerSupport aopAccessLoggerSupport;
+
+        public ListenerProcessor(AopAccessLoggerSupport aopAccessLoggerSupport) {
+            this.aopAccessLoggerSupport = aopAccessLoggerSupport;
+        }
 
         @Override
         public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
@@ -45,7 +53,8 @@ public class AopAccessLoggerSupportAutoConfiguration {
         public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
             if (bean instanceof AccessLoggerListener) {
                 aopAccessLoggerSupport.addListener(((AccessLoggerListener) bean));
-            }  if (bean instanceof AccessLoggerParser) {
+            }
+            if (bean instanceof AccessLoggerParser) {
                 aopAccessLoggerSupport.addParser(((AccessLoggerParser) bean));
             }
             return bean;
