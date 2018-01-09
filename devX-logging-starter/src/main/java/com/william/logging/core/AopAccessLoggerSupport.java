@@ -112,11 +112,16 @@ public class AopAccessLoggerSupport extends StaticMethodMatcherPointcutAdvisor {
     @Override
     public boolean matches(Method method, Class<?> aClass) {
         AccessLogger ann = AopUtils.findAnnotation(aClass, method, AccessLogger.class);
+        if (null == ann){
+            return false;
+        }
         if (ann != null && ann.ignore()) {
             return false;
         }
-        RequestMapping mapping = AopUtils.findAnnotation(aClass, method, RequestMapping.class);
-        return mapping != null;
+
+        return true;
+//        RequestMapping mapping = AopUtils.findAnnotation(aClass, method, RequestMapping.class);
+//        return mapping != null;
 
 //        //注解了并且未取消
 //        return null != ann && !ann.ignore();
